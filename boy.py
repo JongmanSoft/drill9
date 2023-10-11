@@ -17,6 +17,10 @@ def left_down(e):
 def left_up(e):
      return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_LEFT
 
+def a_down(e):
+    return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_a
+
+
 
 
 class Idle:
