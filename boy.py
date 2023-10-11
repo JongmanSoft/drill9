@@ -1,5 +1,7 @@
+#2022180029 이세영
 from pico2d import *
 import math
+
 
 
 def space_down(e):
