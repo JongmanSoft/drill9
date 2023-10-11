@@ -21,7 +21,27 @@ def a_down(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_a
 
 
+class AutoRun:
+    @staticmethod
+    def enter(boy, e):
+        boy.dir, boy.action = -1, 0
+        boy.frame = 0
+        boy.wait_time = get_time()
+        pass
 
+    @staticmethod
+    def exit(boy, e):
+        pass
+
+    @staticmethod
+    def do(boy):
+        boy.frame = (boy.frame + 1) % 8
+        if get_time() - boy.wait_time > 5:
+            boy.state_machine.handle_event(('TIME_OUT', 0))
+
+    @staticmethod
+    def draw(boy):
+        boy.image.clip_composite_draw(boy.frame * 100, boy.action * 100, 100, 100, 0, '', 0, 0, 300, 300)
 
 class Idle:
     @staticmethod
@@ -63,6 +83,8 @@ class Sleep:
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
+        boy.x += boy.dir * 20
+        if (boy.x > 600 or boy.x < 100): boy.dir * -1
 
     @staticmethod
     def draw(boy):
