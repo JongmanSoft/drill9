@@ -39,7 +39,8 @@ class AutoRun:
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
         boy.x += boy.dir * 30
-        if (boy.x > 700 or boy.x < 100): boy.dir = boy.dir * -1; boy.action = not boy.action
+        if (boy.x > 700): boy.dir = -1; boy.action = 0
+        if (boy.x < 0) : boy.dir = boy.dir =1; boy.action =1
         if get_time() - boy.wait_time > 5:
             boy.state_machine.handle_event(('TIME_OUT', 0))
 
@@ -126,7 +127,7 @@ class StateMachine:
             Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Sleep ,a_down: AutoRun},
             Run: {right_down: Idle, left_down: Idle, right_up: Idle, left_up: Idle},
             Sleep: {right_down: Run, left_down: Run, right_up: Run, left_up: Run, space_down: Idle},
-            AutoRun: {time_out: Idle}
+            AutoRun: {time_out: Idle,right_down: Run, left_down: Run, left_up: Run, right_up: Run }
         }
 
     def start(self):
